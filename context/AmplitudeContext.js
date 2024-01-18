@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, createContext } from "react";
-import { init, track, identify, Identify } from "@amplitude/analytics-browser";
+import { init, track } from "@amplitude/analytics-browser";
 
-const AMPLITUDE_API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY ?? "";
-const IdentifyObj = new Identify();
+const AMPLITUDE_API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY;
 
 export const AmplitudeContext = createContext({});
 
@@ -20,11 +19,7 @@ const AmplitudeContextProvider = ({ children }) => {
     track(eventName, eventProperties);
   };
 
-  const identifyAmplitudeUserProperty = (propName, propValue) => {
-    identify(IdentifyObj.set(propName, propValue));
-  };
-
-  const value = { trackAmplitudeEvent, identifyAmplitudeUserProperty };
+  const value = { trackAmplitudeEvent };
 
   return (
     <AmplitudeContext.Provider value={value}>
